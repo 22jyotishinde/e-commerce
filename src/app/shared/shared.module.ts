@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeadersComponent } from './components/headers/headers.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoginModule } from '../login/login.module';
+import { RouterModule } from '@angular/router';
+
 
 
 
@@ -11,7 +14,12 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LoginModule,
+    RouterModule
+  
+  
+
   ],
   exports:[HeadersComponent,
     FooterComponent]

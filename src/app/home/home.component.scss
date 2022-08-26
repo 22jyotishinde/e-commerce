@@ -1,0 +1,51 @@
+.shadow{
+    height:110px
+}
+// .product{
+//     position: absolute;
+//     /* bottom: 11px; */
+//     left: 21px;
+//     right: 9%;
+//     top: 63px;
+//     margin: auto;
+//     opacity: 1;
+//     }
+//     .pr1{
+//         padding: 12px 8px;
+//     text-align: center;
+//     cursor: pointer;
+//     }
+    img, svg {
+        vertical-align: middle;
+        /* padding: 12px 8px; */
+        text-align: center;
+        cursor: pointer;
+        /* margin: 20px; */
+        // margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 22px;
+        margin-right: 47px;
+    }
+    a {
+        font-size: small;
+        font-family: sans-serif;
+        color: black;
+        text-align: center;
+}
+// .carousel-inner{
+//    padding: 2px;
+//    width: 1200px;
+  
+    
+   
+// }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container{
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: small;
+}
