@@ -1,8 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../core/http/http.service';
+import { CartserviceService } from '../cart/services/cartservice.service';
+import { HttpmethodService } from '../core/http/httpmethod.service';
 import { product } from '../models/product';
 import { ProductService } from '../product.service';
+
 
 @Component({
   selector: 'app-home',
@@ -10,22 +12,28 @@ import { ProductService } from '../product.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-pro:any
-  constructor(private service:ProductService,private http:HttpService) { }
-  productArray:any;
-  filterproductArray:product[] = [];
+  productArray:product[]=[];
+  filterproductArray:product[]=[]
+  constructor(private httpsev:HttpmethodService,private cart:CartserviceService ,private prosev:ProductService) { }
+  
+   ngOnInit(): void {
+     this.httpsev.getdata('productsitem').subscribe((res:product[])=>{
+      if(Array.isArray(res)&& res.length>0){
+        this.productArray =res;
+        console.log('productArray')
+        this.filterproduct('all');
 
-  ngOnInit(): void {
-    // this.service.getdata('productsitem').subscribe((res:any)=>{
+      console.log(res)
+      }
+   this.filterproduct('all')
+     })
+    //  this.prosev.getdata('productsitem').subscribe((res:any)=>{
     //   this.productArray=res
     //   console.log(this.productArray)
     //   this.filterproduct('all')
-    // })
-    this.http.getData('productsitem').subscribe((res:any)=>{
-      this.productArray=res
-      console.log(this.productArray)
-      this.filterproduct('all')
-    })
+    //  })
+   
+    this.filterproductArray = this.productArray
     }
   filterproduct(type:any){
     if(type == 'all'){
@@ -33,5 +41,10 @@ pro:any
     }else{
       this.filterproductArray = this.productArray.filter((res:any)=>(res.category == type));
     }}
+   
 
+    AddTocart(Product:product){
+      this.cart.additemTocart(Product);
+    }
 }
+

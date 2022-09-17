@@ -1,4 +1,4 @@
- <div class="jumbotron">
+  <div [ngClass]="actionName !='signup' ? 'container mt-4 w-50 card' : 'jumbotron'">  <!--ternary operator use for after click in profile then this page is look like good--> 
     <div class="card">
         <form [formGroup]="signupForm" (ngSubmit)="onsubmit()" class="row g-3 text-left bg white">
             <div class="mb-1">
@@ -18,7 +18,7 @@
             <div class="mb-1">
                 <label for="Lastname">Last name</label>
                 <input type="text" class="form-control" name="lastName" id="lastname"
-    B                placeholder="Enter Lastname" formControlName="lastName">
+                    placeholder="Enter Lastname" formControlName="lastName">
                 <div *ngIf="signupForm.controls['lastName'].errors?.['required'] && (signupForm.controls['lastName'].touched || signupForm.controls['lastName'].dirty)"
                     class="is invalid-feedback d-block">
                     *Last Name is Mandatory
@@ -38,7 +38,7 @@
             </div>
             <div class="mb-1">
                 <label for="mobileNumber">Mobile No</label>
-                <input type="number" class="form-control is-valid" name="mobileNumber" id="mobileNumber"
+                <input type="number" class="form-control " name="mobileNumber" id="mobileNumber"
                     placeholder="Enter Mobile No" formControlName="mobileNumber">
                 <div *ngIf="signupForm.controls['mobileNumber'].errors?.['required'] && (signupForm.controls['mobileNumber'].touched || signupForm.controls['mobileNumber'].dirty)"
                     class="is invalid-feedback d-block">
@@ -51,41 +51,44 @@
             </div>
             <div class="mb-1">
                 <label for="validationServer01">Email</label>
-                <input type="email" class="form-control is-valid" name="email" id="Email" placeholder="Enter Email"
+                <input type="Email" class="form-control " name="Email" id="Email" placeholder="Enter Email"
                     formControlName="emailId">
                 <div *ngIf="signupForm.controls['emailId'].errors?.['required'] && (signupForm.controls['emailId'].touched || signupForm.controls['emailId'].dirty)"
                     class="is invalid-feedback d-block">
                     *Email is Mandatory
                 </div>
-               <div *ngIf="signupForm.controls['emailId'].errors?.['pattern']&& (signupForm.controls['emailId'].touched || signupForm.controls['emailId'].dirty)"
+               <!-- <div *ngIf="signupForm.controls['emailId'].errors?.['pattern']&& (signupForm.controls['emailId'].touched || signupForm.controls['emailId'].dirty)"
                     class="is invalid-feedback d-block">
                  
-                </div> 
+                </div>  -->
 
                <div class="mb-1">
                     <label for="validationServer01">Password</label>
-                    <input type="password" class="form-control" name="password" id="password"
+                    <input type="password" class="form-control s-valid" name="password" id="password"
                         placeholder="At least 10 characters" formControlName="password">
-                    <div *ngIf="signupForm.controls['password'].errors?.['required'] && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)"
+                    <!-- <div *ngIf="signupForm.controls['password'].errors?.['required'] && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)"
                         class="is invalid-feedback d-block">
-                        *Please enter a valid passord
-                    </div> 
+                        *pasword is Mandatory
+                    </div>  -->
                     <!-- <div *ngIf="signupForm.errors?.['passwordNotMatch'] && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)" class="invalid-feedback d-block">
                         Password and Confirm Password is not same 
                         </div> -->
                    
-                    <!-- <div *ngIf="signupForm.controls['password'].errors?.['passwordmissMatch'] && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)"
+                    <div *ngIf="signupForm.controls['password'].errors?.['passwordNotMatch'] && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)"
                         class="is invalid-feedback d-block">
                         password and confirm-password are not same
-                    </div>  -->
+                    </div> 
                 </div>
                    <div class="mb-1">
                     <label for="validationServer01">Confirm-Password</label>
-                    <input type="password" class="form-control is-valid" name="confirmpassword" id="confirmpassword"
-                        placeholder="ConfirmPassword" formControlName="confirmpassword"> 
-                       <!-- <div *ngIf="signupForm.controls['confirmpassword'].errors?.['passwordNotMatch'] && (signupForm.controls['confirmPassword'].touched || signupForm.controls['confirmPassword'].dirty)" class="invalid-feedback d-block">
+                    <input type="password" class="form-control" name="confirmpassword" id="confirmpassword"
+                        placeholder="confirm-password" formControlName="confirmpassword"> 
+                        <!-- <div *ngIf="signupForm.controls['confirmpassword'].errors?.['required'] && (signupForm.controls['confirmPassword'].touched || signupForm.controls['confirmPassword'].dirty)" class="invalid-feedback d-block">
+                           *confirm-password is Mandatory
+                       </div> -->
+                       <div *ngIf="signupForm.controls['confirmpassword'].errors?.['passwordNotMatch'] && (signupForm.controls['confirmpassword'].touched || signupForm.controls['confirmpassword'].dirty)" class="invalid-feedback d-block">
                             Password and Confirm Password is not same 
-                       </div>  -->
+                       </div> 
               </div>
                 <div formGroupName="address" *ngIf="actionName !='signup'">
                     <h3>Address Section:</h3>
@@ -146,7 +149,7 @@
             <div class="col-12">
                 <div class="form-check">
                     <input class="form-check-input is-invalid" type="checkbox" id="invalidCheck3"
-                        aria-describedby="invalidCheck3Feedback" required>
+                        aria-describedby="invalidCheck3Feedback" required formControlName="isFormAccept">
                     <label class="form-check-label" for="invalidCheck3">
                         Agree to terms and conditions
                     </label>

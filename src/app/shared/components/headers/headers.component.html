@@ -1,34 +1,63 @@
 <nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Shoping Mart</a>
+  
+      <a class="navbar-brand" >Shoping Mart</a>
+     
+       <a class="_21ljIi" href="/plus">Explore <span class="_2FVHGh">Plus</span>
+        <img width="10" src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/plus_aef861.png"></a>
+  
+      <!-- <p><label class="logo">Shoping Mart</label></p> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> <i class="bi bi-search"></i>
+       
+        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
       </form>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" margin="auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
+          <li class="nav-item" *ngIf="!isuserLoggedin">
+            <button class="btn btn-white bg-white nav-link active text-dark loginBtn" aria-current="page" data-bs-toggle="modal" data-bs-target="#exampleModal" color="blue">Login</button>
           </li>
+          <li class="nav-item dropdown" *ngIf="isuserLoggedin">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{store.firstName}} &nbsp;{{store.lastName}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/signup']"><i class="bi bi-person-circle"></i>   My Profile</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-save-fill"></i>   Orders</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()"><i class="bi bi-power"></i>Logout</a></li>
+            </ul>
+          </li>
+          <!-- <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                ...
+              </div>
+            </div>
+          </div> -->
           <li class="nav-item">
-            <a class="nav-link" routerlink="/seller">Become a Seller</a>
+            <a class="nav-link text-white" [routerLink]="['/seller']" >Become a Seller</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               More
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-bell-fill"></i>Notification Preference</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-graph-up-arrow"></i>Advertise</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-download"></i>Download app</a></li>
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerlink="/cart">Cart</a>
+            <a class="nav-link text-white" [routerLink]="['/cart']"><i class="bi bi-cart3"></i>Cart<span class="badge  bg-danger mb-1">{{(selecteditems | async)?.length}}</span></a>
+            <!-- <i class="bi bi-cart3"></i> -->
+            <!-- <span class="material-symbols-outlined">
+              shopping_cart
+              </span> -->
           </li>
         </ul>
        
@@ -44,14 +73,18 @@
         <button type="button" #buttonClose class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-signin></app-signin>
-        <app-signup></app-signup>
-        <!-- <app-signin *ngIf="actionType == 'SignIn'" (signInCompleted)="signInHandler($event)"></app-signin>
-        <app-signup *ngIf="actionType == 'SignUp'" [actionName]="'SignUp'" (signUpCompleted)="signUpHandler($event)"></app-signup> -->
+        <!-- <app-signin></app-signin>
+        <app-signup></app-signup> -->
+        <app-signin *ngIf="actiontype == 'SignIn'" (signincompl)="signcheck($event)" ></app-signin>
+        <app-signup *ngIf="actiontype == 'SignUp'" [actionName]="'signup'" (signupcompleted)="signup($event)" ></app-signup>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer"m-auto>
         <button type="button" class="btn btn-primary m-auto" *ngIf="actiontype == 'SignIn'" (click)="handleAction()">New User</button>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- (signInCompleted)="signInHandler($event)" -->
+<!-- (signUpCompleted)="signUpHandler($event)" -->

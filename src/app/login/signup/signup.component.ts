@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/core/Authentication/authentication.service';
-import { HttpService } from 'src/app/core/http/http.service';
+import { HttpmethodService } from 'src/app/core/http/httpmethod.service';
+import { passWordMisMatch } from 'src/app/validator/custom validator';
+
 
 
 @Component({
@@ -15,8 +17,8 @@ export class SignupComponent implements OnInit {
   customer:any
   
   @Input() actionName:string=''
-  @Output() signupcompleted = new EventEmitter<boolean>()
-  constructor(private fb:FormBuilder,private Auth:AuthenticationService,private service:HttpService) { }
+  @Output() signupcompleted = new EventEmitter<boolean>(false)
+  constructor(private fb:FormBuilder,private Auth:AuthenticationService,private service:HttpmethodService) { }
 
   ngOnInit(): void {
     this.createformsstructure();
@@ -26,7 +28,7 @@ export class SignupComponent implements OnInit {
     }
   }
   ngviewAfterinit(){
-    console.log('hideform',this.actionName)
+    console.log('actionName',this.actionName)
   }
   createformsstructure(){
     this.signupForm = this.fb.group({
@@ -37,20 +39,21 @@ export class SignupComponent implements OnInit {
      "emailId":['',[Validators.required,Validators.minLength(2),Validators.maxLength(20)]],
      "password":['',[Validators.required,Validators.minLength(2),Validators.maxLength(10)]],
      "confirmpassword":['',[Validators.required,Validators.minLength(2),Validators.maxLength(10)]],
-    //  "isFormAccept":[false,[Validators.required]],
-    //  "address":this.fb.group({
-    //   "line1":['',],
-    //   "line2":['',[]],
-    //   "city":['',[]],
-    //   "state":['',[]],
-    //   "zip":[''],
-    //  })
-    })
+     "isFormAccept":[false,[Validators.required]],
+     "address":this.fb.group({
+      "line1":['',],
+      "line2":['',[]],
+      "city":['',[]],
+      "state":['',[]],
+     })
+    },
+    // {validators:passWordMisMatch}
+    )
   }
- 
+
   onsubmit(){
     if(this.signupForm.valid){
-      this.service.register('users',this.signupForm.value).subscribe(res=>{
+      this.service.postdata('users',this.signupForm.value).subscribe(res=>{
         console.log('data',res)
         this.signupcompleted.emit(true) 
       })
@@ -67,14 +70,22 @@ export class SignupComponent implements OnInit {
     "emailId":"",
     "password":"",
     "confirmpassword":"",
-    "address":"",
+    "address":{
       "line1":"",
       "line2":"",
       "city":"",
       "state":"",
       "zipcode":"",
  }
- 
+}
 
+get LastName(){
+  return this.signupForm.get('lastName');
+}
+get FirstName(){
+  return this.signupForm.get('firstName');
+}
+
+ 
 }
 

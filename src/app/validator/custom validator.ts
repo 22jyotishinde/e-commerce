@@ -1,26 +1,15 @@
 import { AbstractControl, ValidationErrors } from "@angular/forms";
 
-export function passwordmissMatch (control:AbstractControl)  : ValidationErrors | null{
+export function passWordMisMatch(control:AbstractControl) : ValidationErrors | null {
     const password = control.get('password')?.value;
-    const confirmpassword = control.get('confirmpassword')?.value;
-    if(password.value ! = confirmpassword){
-    return {'passwordNotMatch':true};
-    } 
-    return null;
-  }
-    // if (!password || !confirmpassword) {
-    //     return null;
-    //   }
+    const confirmPassword = control.get('confirmpassword')?.value;
+    if(password != confirmPassword) {
+        return {'passwordNotMatch':true};
+    }
+    return null ;
+}
 
-    //   if (confirmpassword.errors && !confirmpassword.errors.passwordMismatch) {
-    //     return null;
-    //   }
-
-    //   if (password.value !== confirmpassword.value) {
-    //     confirmpassword.setErrors({ passwordMismatch: true });
-    //   } else {
-    //     confirmpassword.setErrors(null);
-    //   }
-    //   return null;
-    // }
-   
+// export function ageMismatch(control:AbstractControl):ValidationErrors | null {
+// //logic
+//     return null;
+// }

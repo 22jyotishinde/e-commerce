@@ -1,7 +1,8 @@
 // import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpService } from '../core/http/http.service';
+import { HttpmethodService } from '../core/http/httpmethod.service';
+
 
 
 
@@ -10,12 +11,21 @@ import { HttpService } from '../core/http/http.service';
 })
 export class LoginService {
   
-  constructor(private http:HttpService) { }
-  authenticatelog(data:any){
+  constructor(private httpcli:HttpmethodService) { }
+  // authenticatelog(data:any){
+  //   const params = new HttpParams()
+  //                 .set("emailId",data.emailId)
+  //                 .set("password",data.password)
+  //   return this.httpcli.getdata('users',params)
+  // }
+  registerUser(data: any) {
+    return this.httpcli.postdata('users', data)
+  }
+  authenticatelogin(data:any){
     const params = new HttpParams()
-                  .set("emailId",data.emailId)
-                  .set("password",data.password)
-    return this.http.getData('users',params)
+                   .set("emailId",data.emailId)
+                   .set("password",data.password)
+ return this.httpcli.getdata('users',params);
   }
  }
 
